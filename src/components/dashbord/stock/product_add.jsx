@@ -14,13 +14,43 @@ import {
   TreeSelect,
   Switch,
   Divider,
+  Upload,
 } from "antd";
+//import ImgCrop from "antd-img-crop";
 
 const ProductAdd = () => {
   const [componentSize, setComponentSize] = useState("default");
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
+  };
+  const [fileList, setFileList] = useState([
+    {
+      uid: "-1",
+      name: "image.png",
+      status: "done",
+      url:
+        "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+    },
+  ]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow.document.write(image.outerHTML);
   };
 
   return (
@@ -84,7 +114,7 @@ const ProductAdd = () => {
                 <Input
                   name="currency-field"
                   pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"
-                  value=""
+                  type="number"
                   data-type="currency"
                   placeholder="$1,000,000.00"
                 />
@@ -96,7 +126,7 @@ const ProductAdd = () => {
                 <Input
                   name="currency-field"
                   pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$"
-                  value=""
+                  type="number"
                   data-type="currency"
                   placeholder="$1,000,000.00"
                 />
@@ -105,13 +135,13 @@ const ProductAdd = () => {
             <Divider />
             <Col span={8}>
               <Form.Item className="text-left">
-                <Input placeholder="Default Text Rate" />
+                <Input type="number" placeholder="Default Text Rate" />
               </Form.Item>
             </Col>
             <Col span={2}></Col>
             <Col span={8}>
               <Form.Item className="text-left">
-                <Input placeholder="Stock Units" />
+                <Input type="number" placeholder="Stock Units" />
               </Form.Item>
             </Col>
             <Divider />
@@ -155,15 +185,33 @@ const ProductAdd = () => {
                 <Input.TextArea placeholder="Description" />
               </Form.Item>
             </Col>
-            <Col span={2}></Col>
-            <Col span={8}>
+            <Col span={5}></Col>
+            <Col span={7.5}>
               <Form.Item label="Valid(To Date)">
                 <DatePicker />
               </Form.Item>
             </Col>
             <Divider />
+            <Col span={10} >
+            <p className="text-left">Upload Your Product Image:</p>
+            </Col>
+            <Col span={10} ></Col>
+            <Col span={10}>
+              <Upload className="text-left"
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-card"
+                fileList={fileList}
+                onChange={onChange}
+                onPreview={onPreview}
+              >
+                
+                {fileList.length < 5 && "+ Upload"}
+              </Upload>
+              </Col>
+              <Col span={8}></Col>
+              <Divider/>
             <Col span={8}>
-              <Form.Item className="text-center">
+              <Form.Item className="text-left">
                 <Button type="primary">Add Product</Button>
               </Form.Item>
             </Col>
