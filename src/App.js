@@ -19,8 +19,11 @@ import { Header, AppLink } from './styles';
 
 //For Product add..
 import ProductAdd from './components/dashbord/stock/product_add';
+// import { EditableRow } from "./components/dashbord/stock/addRow";
 
 import {HomePage} from './components/dashbord'
+
+import Index from "./pages/Index";
 
 
 const getLockScreenUi = setLock => {
@@ -65,6 +68,7 @@ function App() {
               {/*<Route path="/test" exact component={Test}></Route>*/}
               <Route path="/" exact component={HomePage}></Route>
               <Route path="/product" exact component={ProductAdd}></Route>
+              <Route path="/login" exact component={Index}></Route>
 
                 {/*<LockScreen timeout={5000} ui={getLockScreenUi}>
                   

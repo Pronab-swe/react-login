@@ -1,0 +1,46 @@
+@import '../App.scss';
+
+.Home{
+    h3{
+        text-align: center;
+    }
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .card{
+      padding: 15px;
+      box-shadow: rgb(0, 119, 255);
+      background-color: rgb(250, 248, 248);
+
+  }
+  .bttn{
+      text-align: center;
+      width: 100%;
+  }
+  .back{
+      padding-top: 50px;
+  }
+
+  .editable-cell {
+    position: relative;
+  }
+  
+  .editable-cell-value-wrap {
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+  
+  .editable-row:hover .editable-cell-value-wrap {
+    padding: 4px 11px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+  }
+  
+  [data-theme='dark'] .editable-row:hover .editable-cell-value-wrap {
+    border: 1px solid #434343;
+  }
